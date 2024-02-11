@@ -12,7 +12,7 @@ const Currency = () => {
     const setCurrencyHandler = (currency) => {
         dispatch({
             type: "CHG_CURRENCY",
-            payload: currency,
+            payload: currency, 
         });
     };
 
