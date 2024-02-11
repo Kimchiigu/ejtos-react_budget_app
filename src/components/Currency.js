@@ -1,23 +1,93 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from "react";
+import { AppContext } from "../context/AppContext";
 
-function Currency() {
-    const [currency, setCurrency] = useState('');
+const Currency = () => {
+    //get current global state
+    const { currency, dispatch } = useContext(AppContext);
 
-    const updateCurrency = (event) => {
-        setCurrency(event.target.value)
-    }
+    //state hook update our component
+    const [isOpen, setIsOpen] = useState(false);
+
+    //update currency in global state
+    const setCurrencyHandler = (currency) => {
+        dispatch({
+            type: "CHG_CURRENCY",
+            payload: currency,
+        });
+    };
+
+    //  '£' '€' '$' '₹'
+
+    const currencyLabel = () => {
+        switch (currency) {
+            case "$":
+                return "$ Dollar";
+            case "£":
+                return "£ Pound";
+            case "€":
+                return "€ Euro";
+            case "₹":
+                return "₹ Ruppee";
+            default:
+                return "";
+        }
+    };
 
     return (
-        <div className="dropdown">
-            <label className="input-group-text" htmlFor="inputGroupSelect01">Currency ({currency})</label>
-            <select className="form-select" id="inputGroupSelect01" onChange={updateCurrency}>
-                <option value="$ Dollar"> $ Dollar</option>
-                <option value="£ Pound"> £ Pound</option>
-                <option value="€ Euro"> € Euro</option>
-                <option value="₹ Ruppee"> ₹ Ruppee</option>
-            </select>
+        <div id="currency-menu" className="dropdown" style={{ cursor: "pointer" }}>
+            <button
+                id="currency-menu-button"
+                className="btn dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style={{ backgroundColor: "#93e399", color: "#fff" }}
+                onClick={() => setIsOpen(!isOpen)}
+            >
+                Currency {"("}
+                {currencyLabel()}
+                {")"}
+            </button>
+            <ul className={`custom-menu dropdown-menu ${isOpen ? "show" : ""} `}>
+                <li>
+                    <button
+                        className="dropdown-item"
+                        type="button"
+                        onClick={() => setCurrencyHandler("$")}
+                    >
+                        $ Dollar
+                    </button>
+                </li>
+                <li>
+                    <button
+                        className="dropdown-item"
+                        type="button"
+                        onClick={() => setCurrencyHandler("£")}
+                    >
+                        £ Pound
+                    </button>
+                </li>
+                <li>
+                    <button
+                        className="dropdown-item"
+                        type="button"
+                        onClick={() => setCurrencyHandler("€")}
+                    >
+                        € Euro
+                    </button>
+                </li>
+                <li>
+                    <button
+                        className="dropdown-item"
+                        type="button"
+                        onClick={() => setCurrencyHandler("₹")}
+                    >
+                        ₹ Ruppee
+                    </button>
+                </li>
+            </ul>
         </div>
     );
-}
+};
 
 export default Currency;
