@@ -54,6 +54,7 @@ const ExpenseItem = (props) => {
           size="1.9em"
           color="#4ead5c"
           onClick={(event) => increaseAllocation(props.name)}
+          style={{cursor: "pointer"}}
         ></FaPlusCircle>
       </td>
       <td>
@@ -61,10 +62,11 @@ const ExpenseItem = (props) => {
           size="1.9em"
           color="#af1e11"
           onClick={(event) => decreaseAllocation(props.name)}
+          style={{cursor: "pointer"}}
         ></FaMinusCircle>
       </td>
       <td>
-        <TiDelete size="1.5em" onClick={handleDeleteExpense}></TiDelete>
+        <TiDelete size="1.5em" onClick={handleDeleteExpense} style={{cursor: "pointer"}}></TiDelete>
       </td>
     </tr>
   );
